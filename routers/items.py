@@ -7,10 +7,13 @@ from db_utils import models
 from db_utils.database import get_db
 from db_utils.schemas import Item, ShowItem
 
-router = APIRouter()
+router = APIRouter(
+    tags=["item"],
+    prefix="/item"
+)
 
 
-@router.post("/item", status_code=status.HTTP_201_CREATED, tags=["item"])
+@router.post("/", status_code=status.HTTP_201_CREATED)
 def create_item(item: Item, db: Session = Depends(get_db)):
     new_item = models.Item(name=item.name, size=item.size, user_id=1)
     db.add(new_item)
@@ -19,7 +22,7 @@ def create_item(item: Item, db: Session = Depends(get_db)):
     return new_item
 
 
-@router.get("/item/{id}", response_model=ShowItem, tags=["item"])
+@router.get("/{id}", response_model=ShowItem)
 def get_item(id: int, db: Session = Depends(get_db)):
     item = db.query(models.Item).filter(models.Item.id == id).first()
     if not item:
@@ -27,7 +30,7 @@ def get_item(id: int, db: Session = Depends(get_db)):
     return item
 
 
-@router.get("/item", response_model=List[ShowItem], tags=["item"])
+@router.get("/", response_model=List[ShowItem], tags=["item"])
 def all_items(db: Session = Depends(get_db)):
     item = db.query(models.Item).all()
     return item
