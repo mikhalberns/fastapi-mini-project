@@ -1,3 +1,5 @@
-fastapi[all]==0.68.1
-SQLAlchemy==1.4.23
-passlib[bcrypt]==1.7.4
+fastapi
+SQLAlchemy
+passlib
+bcrypt
+uvicorn
