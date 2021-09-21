@@ -15,7 +15,7 @@ router = APIRouter(
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
 def create_item(item: Item, db: Session = Depends(get_db)):
-    return items.creat_item(item, db)
+    return items.create_item(item, db)
 
 
 @router.get("/{id}", response_model=ShowItem)
