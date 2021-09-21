@@ -1,0 +1,6 @@
+version: "3.7"
+services:
+  nofar-db:
+    image: mongo:4.2.16
+    ports:
+      - "27022:27017"
